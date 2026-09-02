@@ -1,14 +1,11 @@
 import Navbar from "@/components/navbar";
+import Leaderboard from "@/components/leaderboard";
 
-export default function Leaderboard() {
+export default function LeaderboardPage() {
   return (
     <div className="bg-[url('/bg.png')] bg-cover bg-center min-h-screen flex items-center justify-center">
       <Navbar />
-      <div className="content-container">
-        <div className="intro-container">
-          Leaderboard coming soon!
-        </div>
-      </div>
+          <Leaderboard />
     </div>
   );
 }
