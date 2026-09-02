@@ -1,10 +1,10 @@
 import Navbar from "@/components/navbar";
-import SpeechBubble from "@/components/speechBubble";
 import {GameModeButton} from "@/components/gameModeButton";
 
 
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <div className="bg-[url('/bg.png')] bg-cover bg-center min-h-screen flex items-center justify-center">
       <Navbar />
