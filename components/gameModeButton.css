@@ -1,0 +1,31 @@
+.game-mode-button-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 72px;
+  border-radius: 9999px;
+  background: #ffffff9b;
+  border: 1.5px solid #ffffff9b;
+  color: #671515;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .game-mode-button {
+    width: 64px;
+    height: 60px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .game-mode-button-text {
+    width: 52px;
+    height: 48px;
+    font-size: 0.75rem;
+  }
+}
