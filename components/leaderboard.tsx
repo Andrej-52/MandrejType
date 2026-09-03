@@ -1,24 +1,18 @@
 import { createClient } from '@/lib/supabase/server'
 
 export default async function Leaderboard() {
-  // const players = [
-  //   { name: "Mari",   wpm: "75", accuracy: 30 },
-  //   { name: "Andrej", wpm: "15", accuracy: 24 },
-  //   { name: "Helene", wpm: "25", accuracy: 18 },
-  //   { name: "Tyra",   wpm: "11", accuracy: 12 },
-  //   { name: "Julie",  wpm: "63", accuracy: 9 },
-  // ];
 
   const supabase = await createClient();
   const { data: players, error } = await supabase
-  .from('Scores')
-  .select('user_id, wpm, accuracy')
-  .order('wpm', { ascending: false })
-  .limit(10);
+    .from('Scores')
+    .select('wpm, accuracy, user_id, profiles(full_name)')
+    .order('wpm', { ascending: false })
+    .limit(10)
+
 
   if (error) {
-  console.error(error)
-  return <p>Couldn't load leaderboard.</p>
+    console.error(error)
+    return <p>Couldn't load leaderboard.</p>
   }
     
   return (
@@ -26,7 +20,7 @@ export default async function Leaderboard() {
       <div className="w-full max-w-xl">
         <p className="text-lg font-bold mb-3 ml-3 text-left text-[#671515]">Leaderboard</p>
 
-        <div className="block w-full overflow-x-auto border bg-[#ffffff9b] border-[#671515] rounded-2xl">
+        <div className="block w-full overflow-x-auto border bg-[#ffffff9b] border-[#671515] rounded-2xl shadow-2xl">
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
@@ -46,17 +40,17 @@ export default async function Leaderboard() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {players.map((player, index) => (
-                <tr key={player.user_id} className="text-green-700">
-                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                <tr>
+                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-[#671515] whitespace-nowrap p-4 ">
                     {index + 1}
                   </td>
-                  <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                    {player.user_id}
+                  <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left text-pink-800">
+                    {(player.profiles as any)?.full_name ?? 'Unknown'}
                   </th>
-                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-[#671515] whitespace-nowrap p-4 text-[#671515]">
                     {player.wpm}
                   </td>
-                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                  <td className="border-t-0 px-4 align-middle text-xs font-medium text-[#671515] whitespace-nowrap p-4 ">
                     {player.accuracy}%
                   </td>
                 </tr>
