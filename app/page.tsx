@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import { GameModeButton } from "../components/gameModeButton";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { getText, getCharStates, randomNumber, calculateStats } from "./logic/logic";
+import { createClient } from '@/lib/supabase/client'
 
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const supabase = createClient()
+  
 
   // forces a re-render every 500ms so WPM ticks up 
   const [, forceTick] = useState(0);
@@ -36,10 +39,33 @@ export default function Home() {
     ? calculateStats(targetText, userInput, startTime, endTime ?? Date.now())
     : null;
 
-  function handleChange(value: string) {
+  async function handleChange(value: string) {
     if (!startTime) setStartTime(Date.now());
     setUserInput(value);
-    if (value.length >= targetText.length) setEndTime(Date.now());
+    if (value.length >= targetText.length) {
+      setEndTime(Date.now());
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        await saveScore(user.id, stats);
+      }
+    }
+  }
+
+  async function saveScore(userId: string, stats: any) {
+    const { data, error } = await supabase.from('Scores').insert([
+      {
+        user_id: userId,
+        wpm: stats?.wpm || 0,
+        accuracy: stats?.accuracy || 0,
+        time_used: stats?.timeUsed || 0
+      }
+    ]);
+    
+    if (error) {
+      console.error('Error inserting score:', error);
+    } else {
+      console.log('Score inserted successfully:', data);
+    }
   }
 
   function handleReset() {
@@ -86,12 +112,6 @@ export default function Home() {
               disabled={endTime !== null}
               autoFocus
             />
-            {/* <div className="flex text-2xl font-bold">
-              Welcome to Mandrej!
-            </div>
-            <div className="flex text-base">
-              This is a type racing game! Select mode to start playing.
-            </div> */}
           </div>
         </div>
         <div className="game-mode-container">
