@@ -11,7 +11,7 @@ export default function Navbar() {
           <Link href="/" className="navbar-logo">
             MANDREJ
           </Link>
-          <Link href="/gameMode"
+          <Link href="/"
             className="icon-bubble">
               <Keyboard size={30} />
           </Link>

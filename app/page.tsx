@@ -116,8 +116,8 @@ export default function Home() {
         </div>
         <div className="game-mode-container">
           <GameModeButton label="Normal" route="/" />
-          <GameModeButton label="Quotes" route="/" />
-          <GameModeButton label="Custom" route="/" />
+          <GameModeButton label="Quotes" route="/gameMode" />
+          <GameModeButton label="Custom" route="/gameMode" />
         </div>
         </div>
       </div>
