@@ -9,14 +9,14 @@ export default function GameMode() {
             <div className="flex">
               <div className="intro-container">
                 <div className="flex text-xl font-bold">
-                  Select mode to start playing!
+                  This mode is coming soon!
                 </div>
               </div>
             </div>
             <div className="game-mode-container">
               <GameModeButton label="Normal" route="/" />
-              <GameModeButton label="Quotes" route="/" />
-              <GameModeButton label="Custom" route="/" />
+              <GameModeButton label="Quotes" route="/gameMode" />
+              <GameModeButton label="Custom" route="/gameMode" />
             </div>
           </div>
         </div>
