@@ -7,7 +7,7 @@ import { getText, getCharStates, randomNumber, calculateStats } from "./logic/lo
 
 
 export default function Home() {
-  const [targetText, setTargetText] = useState(() => getText(randomNumber(20, 100)));
+  const [targetText, setTargetText] = useState("");
   const [userInput, setUserInput] = useState("");
   const [startTime, setStartTime] = useState<number | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
@@ -15,6 +15,11 @@ export default function Home() {
 
   // forces a re-render every 500ms so WPM ticks up 
   const [, forceTick] = useState(0);
+
+
+  useEffect(() => {
+    setTargetText(getText(randomNumber(20, 100)));
+  }, []);
 
   useEffect(() => {
     if (!startTime || endTime) return; // only tick while actively racing
