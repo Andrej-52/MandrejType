@@ -7,7 +7,7 @@ import { getText, getCharStates, randomNumber, calculateStats } from "./logic/lo
 
 
 export default function Home() {
-  const [targetText] = useState(() => getText(randomNumber(20, 100)));
+  const [targetText, setTargetText] = useState(() => getText(randomNumber(20, 100)));
   const [userInput, setUserInput] = useState("");
   const [startTime, setStartTime] = useState<number | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
@@ -36,6 +36,14 @@ export default function Home() {
     setUserInput(value);
     if (value.length >= targetText.length) setEndTime(Date.now());
   }
+
+  function handleReset() {
+    setTargetText(getText(randomNumber(20, 100)));
+    setUserInput("");
+    setStartTime(null);
+    setEndTime(null);
+    inputRef.current?.focus();
+  }
   
   return (
     <div className="bg-[url('/bg.png')] bg-cover bg-center min-h-screen flex items-center justify-center">
@@ -45,6 +53,9 @@ export default function Home() {
         <span className="text-2xl font-bold mb-4">{stats?.wpm || 0} WPM</span>
         <span className="text-lg mb-4">{stats?.accuracy.toFixed(2) || 0}% Accuracy</span>
         <span className="text-lg mb-4">{stats?.timeUsed.toFixed(0) || 0} seconds</span>
+        <button className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleReset()}>
+          Reset
+        </button>
         </div>
         <div className="content-container">
         <div className="flex">
