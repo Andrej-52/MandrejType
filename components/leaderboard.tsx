@@ -27,7 +27,7 @@ export default async function Leaderboard() {
                 <th className="px-4 bg-gray-50 text-[#671515] align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                   RANKING
                 </th>
-                <th className="px-4 bg-gray-50 text-[#671515] align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
+                <th className="px-4 bg-gray-50 text-pink-800 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                   NAME
                 </th>
                 <th className="px-4 bg-gray-50 text-[#671515] align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
@@ -40,7 +40,7 @@ export default async function Leaderboard() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {players.map((player, index) => (
-                <tr>
+                <tr key={player.user_id} className="text-[#671515]">
                   <td className="border-t-0 px-4 align-middle text-xs font-medium text-[#671515] whitespace-nowrap p-4 ">
                     {index + 1}
                   </td>
