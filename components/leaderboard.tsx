@@ -5,7 +5,7 @@ export default async function Leaderboard() {
   const supabase = await createClient();
   const { data: players, error } = await supabase
     .from('Scores')
-    .select('wpm, accuracy, user_id, profiles(full_name)')
+    .select('id,wpm, accuracy, user_id, profiles(full_name)')
     .order('wpm', { ascending: false })
     .limit(10)
 
@@ -40,7 +40,7 @@ export default async function Leaderboard() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {players.map((player, index) => (
-                <tr key={player.user_id} className="text-[#671515]">
+                <tr key={player.id}>
                   <td className="border-t-0 px-4 align-middle text-xs font-medium text-[#671515] whitespace-nowrap p-4 ">
                     {index + 1}
                   </td>

@@ -17,7 +17,7 @@ export function calculateStats(targetText: string, userInput: string, startTime:
     const totalTyped = correct + incorrect;
     const accuracy = totalTyped > 0 ? (correct / totalTyped) * 100 : 0;
 
-    const timeUsed = (endTime - startTime) / 1000;
+    const timeUsed = Math.round((endTime - startTime) / 1000);
     const minutes = timeUsed / 60;
     const wpm = minutes > 0 ? Math.round(correct / 5 / minutes) : 0;
 
