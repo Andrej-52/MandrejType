@@ -17,6 +17,8 @@ export default function Game({ mode }: GameProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const supabase = createClient();
 	const [, forceTick] = useState(0);
+	const [showResult, setShowResult] = useState(false);
+  
 
 	function createModeRace() {
 		return createRace(getPrompt(mode));
@@ -42,8 +44,10 @@ export default function Game({ mode }: GameProps) {
 		const nextRace = handleKeystroke(race, value);
 		setRace(nextRace);
 		if (nextRace.endTime !== null && race.endTime === null) {
+			setShowResult(true);
 			const { data: { user } } = await supabase.auth.getUser();
 			if (user) await saveScore(user.id, calculateStats(nextRace));
+      
 		}
 	}
 
@@ -58,10 +62,12 @@ export default function Game({ mode }: GameProps) {
 			},
 		]);
 		if (error) console.error("Error inserting score:", error);
+
 	}
 
 	function handleReset() {
 		setRace(createModeRace());
+		setShowResult(false);
 		inputRef.current?.focus();
 	}
 
@@ -77,6 +83,7 @@ export default function Game({ mode }: GameProps) {
 			onFocus={() => inputRef.current?.focus()}
 			onChange={handleChange}
 			disabled={race.endTime !== null}
+			showResult={showResult}
 		/>
 	);
 }

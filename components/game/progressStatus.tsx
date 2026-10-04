@@ -12,7 +12,7 @@ export default function ProgressStatus({ stats, onReset }: ProgressStatusProps) 
 			<span className="text-lg mb-4">{stats?.accuracy.toFixed(2) || 0}% Accuracy</span>
 			<span className="text-lg mb-4">{stats?.timeUsed.toFixed(0) || 0} seconds</span>
 			<button
-				className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+				className="bg-[#E0457B] hover:bg-[#C93368] text-white font-bold py-2 px-4 rounded-xl "
 				onClick={onReset}
 			>
 				Reset
