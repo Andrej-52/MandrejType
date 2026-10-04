@@ -5,12 +5,14 @@ export default function LoginButton() {
   const supabase = createClient()
 
   const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${location.origin}/auth/callback?next=/profile`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     })
+
+    if (error) console.error('OAuth sign-in failed:', error)
   }
 
   return (

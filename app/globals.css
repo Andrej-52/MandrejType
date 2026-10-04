@@ -48,6 +48,15 @@
     justify-content: space-evenly;
 }
 
+.code-intro-container {
+  text-align: left;
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  justify-content: center;
+  
+}
+
 /* Tablet */
 @media (max-width: 768px) {
   .game-container {
